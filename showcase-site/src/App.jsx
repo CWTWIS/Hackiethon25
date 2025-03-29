@@ -21,7 +21,7 @@ function App() {
     <div
       className="App"
       style={{
-        backgroundImage: "url(/showcase-site/stars.png)",
+        backgroundImage: "url(/Hackiethon25/showcase-site/stars.png)",
         height: "100vh",
       }}
     >
