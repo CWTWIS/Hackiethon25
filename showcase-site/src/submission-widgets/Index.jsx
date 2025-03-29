@@ -2,7 +2,7 @@ import { useState } from "react";
 import addIcon from "./add-icon.svg";
 import checkBox from "./check-box.svg";
 import checkBoxChecked from "./check-box-checked.svg";
-import LottiesTest from "./LottiesTest";
+import PetProgressBar from "./subwidgets/PetProgressBar";
 import deleteIcon from "./delete-icon.svg";
 
 const TodoForm = ({ onAddItem }) => {
@@ -129,7 +129,7 @@ const Index = () => {
     <div className="w-110">
       <div className="p-4 h-100 bg-white rounded-xl shadow-lg">
         <div className="space-y-4">
-          <LottiesTest
+          <PetProgressBar
             taskForProgressBar={taskForProgressBar}
             onResetProgress={onResetProgress}
           />

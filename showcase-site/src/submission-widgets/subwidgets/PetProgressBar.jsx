@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 
-import PinkEgg from "./assets/egg_pink.json";
-import PinkKitten from "./assets/kitten_pink.json";
-import PinkCat from "./assets/cat_pink.json";
+import PinkEgg from "../assets/egg_pink_2.json";
+import PinkKitten from "../assets/kitten_pink_2.json";
+import PinkCat from "../assets/cat_pink_2.json";
 
-import BlueEgg from "./assets/egg_blue.json";
-import BlueKitten from "./assets/kitten_blue.json";
-import BlueCat from "./assets/cat_blue.json";
+import BlueEgg from "../assets/egg_blue_2.json";
+import BlueKitten from "../assets/kitten_blue_2.json";
+import BlueCat from "../assets/cat_blue_2.json";
 
-import YellowEgg from "./assets/egg_yellow.json";
-import YellowKitten from "./assets/kitten_yellow.json";
-import YellowCat from "./assets/cat_yellow.json";
+import YellowEgg from "../assets/egg_yellow_2.json";
+import YellowKitten from "../assets/kitten_yellow_2.json";
+import YellowCat from "../assets/cat_yellow_2.json";
 
 const pets = [
   { baby: PinkEgg, juvenile: PinkKitten, mature: PinkCat },
@@ -19,7 +19,7 @@ const pets = [
   { baby: YellowEgg, juvenile: YellowKitten, mature: YellowCat },
 ];
 
-const LottiesTest = ({ taskForProgressBar, onResetProgress }) => {
+const PetProgressBar = ({ taskForProgressBar, onResetProgress }) => {
   // pet
   const [currentPet, setCurrentPet] = useState(
     pets[Math.floor(Math.random() * pets.length)]
@@ -107,4 +107,4 @@ const LottiesTest = ({ taskForProgressBar, onResetProgress }) => {
   );
 };
 
-export default LottiesTest;
+export default PetProgressBar;
