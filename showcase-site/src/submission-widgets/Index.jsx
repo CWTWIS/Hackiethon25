@@ -1,9 +1,112 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import addIcon from "./add-icon.svg";
 import checkBox from "./check-box.svg";
 import checkBoxChecked from "./check-box-checked.svg";
-import PetProgressBar from "./subwidgets/PetProgressBar";
 import deleteIcon from "./delete-icon.svg";
+import Lottie from "lottie-react";
+import PinkEgg from "./assets/egg_pink_2.json";
+import PinkKitten from "./assets/kitten_pink_2.json";
+import PinkCat from "./assets/cat_pink_2.json";
+import BlueEgg from "./assets/egg_blue_2.json";
+import BlueKitten from "./assets/kitten_blue_2.json";
+import BlueCat from "./assets/cat_blue_2.json";
+import YellowEgg from "./assets/egg_yellow_2.json";
+import YellowKitten from "./assets/kitten_yellow_2.json";
+import YellowCat from "./assets/cat_yellow_2.json";
+
+const pets = [
+  { baby: PinkEgg, juvenile: PinkKitten, mature: PinkCat },
+  { baby: BlueEgg, juvenile: BlueKitten, mature: BlueCat },
+  { baby: YellowEgg, juvenile: YellowKitten, mature: YellowCat },
+];
+
+const PetProgressBar = ({ taskForProgressBar, onResetProgress }) => {
+  // pet
+  const [currentPet, setCurrentPet] = useState(
+    pets[Math.floor(Math.random() * pets.length)]
+  );
+  const [isEvolutionComplete, setIsEvolveComplete] = useState(false);
+
+  // task
+  const eggStageLimit = 3;
+  const juvenileStageLimit = 5;
+  const fullGrownStage = eggStageLimit + juvenileStageLimit;
+
+  // determine animation
+  const currentPetAnimation =
+    taskForProgressBar >= fullGrownStage
+      ? currentPet.mature
+      : taskForProgressBar >= eggStageLimit
+      ? currentPet.juvenile
+      : currentPet.baby;
+
+  // determine progress bar
+  const currentStageLimit =
+    taskForProgressBar < eggStageLimit
+      ? eggStageLimit
+      : taskForProgressBar < fullGrownStage
+      ? juvenileStageLimit
+      : juvenileStageLimit;
+  const currentStageOffset =
+    taskForProgressBar < eggStageLimit ? 0 : eggStageLimit;
+
+  // progress bar width
+  const barWidth = 200;
+  const rectangleWidth = barWidth / currentStageLimit;
+
+  // start new egg when complete
+  useEffect(() => {
+    if (taskForProgressBar >= fullGrownStage && !isEvolutionComplete) {
+      setIsEvolveComplete(true);
+      setTimeout(() => {
+        setCurrentPet(pets[Math.floor(Math.random() * pets.length)]);
+        onResetProgress();
+        setIsEvolveComplete(false);
+      }, 3000);
+    }
+  }, [taskForProgressBar, isEvolutionComplete, onResetProgress]);
+
+  return (
+    <div className="p-6 mx-auto bg-white rounded-xl shadow-lg">
+      <div className="flex justify-between gap-5">
+        {/* -------------- Current Pet ------------- */}
+        <div>
+          <Lottie
+            animationData={currentPetAnimation}
+            style={{ width: 50, height: 50 }}
+          />
+        </div>
+
+        {/* ----------- Progressbar ----------- */}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              width: barWidth,
+              height: "20px",
+            }}
+          >
+            {Array.from({ length: currentStageLimit }).map((_, index) => (
+              <div
+                key={index}
+                style={{
+                  width: rectangleWidth,
+                  height: "100%",
+                  borderRadius: "5px",
+                  backgroundColor:
+                    index + currentStageOffset < taskForProgressBar
+                      ? "#84cc16"
+                      : "#e5e7eb",
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const TodoForm = ({ onAddItem }) => {
   const [input, setInput] = useState("");
@@ -141,22 +244,25 @@ const Index = () => {
             </button>
           </div>
 
-          {createNewItem ? <TodoForm onAddItem={atAddItem} /> : null}
+          <div className="flex flex-col h-50">
+            {createNewItem ? <TodoForm onAddItem={atAddItem}/> : null}
 
-          {toDoList.length ? (
-            <ul className="max-h-40 overflow-y-auto scrollbar-thumb-gray-300 scrollbar-track-transparent rounded-xl p-2 shadow-md bg-white">
-              {toDoList.map((toDoItem) => (
-                <ListCard
-                  key={toDoItem.id}
-                  id={toDoItem.id}
-                  done={toDoItem.done}
-                  taskTitle={toDoItem.title}
-                  onClickItem={atClickItem}
-                  onClickDelete={atClickDelete}
-                />
-              ))}
-            </ul>
-          ) : null}
+            {toDoList.length ? (
+              <ul className={`flex-1${createNewItem ? 'h-11/12' : 'h-full'} overflow-y-auto scrollbar-thumb-gray-300 scrollbar-track-transparent rounded-xl p-2 shadow-md bg-white`}>
+                {toDoList.map((toDoItem) => (
+                  <ListCard
+                    key={toDoItem.id}
+                    id={toDoItem.id}
+                    done={toDoItem.done}
+                    taskTitle={toDoItem.title}
+                    onClickItem={atClickItem}
+                    onClickDelete={atClickDelete}
+                  />
+                ))}
+              </ul>
+            ) : null}
+          </div>
+          
         </div>
       </div>
     </div>
