@@ -1,8 +1,7 @@
 import "./App.css";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 import Dropdown from "./Dropdown";
 import DropZone from "./Dropzone";
-import StarBackground from "../public/stars.png";
 
 function App() {
   // Paste your desired website here, in full https form without the "/" at the end
