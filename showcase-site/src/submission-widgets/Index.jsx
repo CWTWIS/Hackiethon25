@@ -2,7 +2,8 @@ import { useState } from 'react';
 import addIcon from './add-icon.svg';
 import checkBox from './check-box.svg';
 import checkBoxChecked from './check-box-checked.svg';
-import MyWidget from './Lotties_Test';
+import LottiesTest from './LottiesTest';
+import deleteIcon from './delete-icon.svg';
 
 const TodoForm = ({ onAddItem }) => {
   const [input, setInput] = useState('');
@@ -19,7 +20,7 @@ const TodoForm = ({ onAddItem }) => {
   return (
     <ul>
       <li className="rounded-xl p-2 shadow-md bg-white">
-        <div className="w-75">
+        <div className="w-full">
           <form onSubmit={atSubmit}>
             <input
               type="text"
@@ -28,7 +29,7 @@ const TodoForm = ({ onAddItem }) => {
                 setInput(e.target.value);
               }}
               placeholder="New task..."
-              className="text-md pl-3"
+              className="text-md pl-4 w-full"
             />
           </form>
       </div>
@@ -38,28 +39,27 @@ const TodoForm = ({ onAddItem }) => {
 };
 
 const ListCard = (props) => {  
-    const {id, done, taskTitle, onClickItem} = props;
+    const {id, done, taskTitle, onClickItem, onClickDelete} = props;
     
-    let className = 'list-item';
-    if (done) {
-        className += ' done';
-    }
-
-    const atClick = () => {
-        onClickItem(id);
-    };
+    const atCheckBoxClick = () => onClickItem(id);
+    const atDeleteClick = () => onClickDelete(id);
 
     return (
       <li className={`p-3 text-base ${done ? 'line-through text-gray-500' : 'text-gray-800'}`}>
-        <div className="flex items-center justify-between w-75">
-          <div className="text-md">{taskTitle}</div>
-          <button onClick={atClick}>
+        <div className="flex">
+          <button onClick={atCheckBoxClick}>
             {done ? (
               <img src={checkBoxChecked} alt="checked" className="w-6 h-6" />
             ) : (
               <img src={checkBox} alt="unchecked" className="w-6 h-6" />
             )}
           </button>
+          <div className="flex justify-between items-center w-full">
+            <div className="text-md ml-3">{taskTitle}</div>
+            <button onClick={atDeleteClick} className="pr-2">
+              <img src={deleteIcon} alt="delete" className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </li>
     )
@@ -102,30 +102,46 @@ const Index = () => {
         setToDoList(newList);
     };
 
+    const atClickDelete = (id) => {
+      const newList = toDoList.filter((item) => item.id !== id)
+      setToDoList(newList);
+    }
+
     const atClickAdd = () => {
       setCreateNewItem(true);
     }
 
     return (
-      <div className="w-100">
-        <div className="p-6 h-100 bg-white rounded-xl shadow-lg">
+      <div className="w-110">
+        <div className="p-4 h-100 bg-white rounded-xl shadow-lg">
           <div className="space-y-4">
       
-          <MyWidget/>
+          <LottiesTest/>
 
-
-          <div className="flex items-center justify-between w-86">
-            <div>Today</div>
-            <button onClick={atClickAdd}>
+          <div className="flex justify-between items-center w-full">
+            <div className="pl-2">Today</div>
+            <button onClick={atClickAdd} className="pr-2">
               <img src={addIcon}/>
             </button>
           </div>
           
           {createNewItem ? <TodoForm onAddItem={atAddItem}/> : null }
-
-          <ul className="max-h-50 overflow-y-auto scrollbar-thumb-gray-300 scrollbar-track-transparent rounded-xl p-2 shadow-md bg-white">
-              {toDoList.map(toDoItem => <ListCard key={toDoItem.id} id={toDoItem.id} done={toDoItem.done} taskTitle={toDoItem.title} onClickItem={atClickItem}/>)}
-          </ul>
+         
+          {
+            toDoList.length ? 
+            (<ul className="max-h-40 overflow-y-auto scrollbar-thumb-gray-300 scrollbar-track-transparent rounded-xl p-2 shadow-md bg-white">
+              {toDoList.map(toDoItem => 
+                <ListCard 
+                key={toDoItem.id} 
+                id={toDoItem.id} 
+                done={toDoItem.done} 
+                taskTitle={toDoItem.title} 
+                onClickItem={atClickItem}
+                onClickDelete={atClickDelete}/>
+              )}
+          </ul>) : null
+          }
+          
         </div>
         </div>
       </div>
