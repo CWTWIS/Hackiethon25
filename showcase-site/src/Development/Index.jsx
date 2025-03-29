@@ -6,8 +6,8 @@ import ListCard from './ListCard';
 
 const Index = () => {
     const [toDoList, setToDoList] = useState(initialList);
-    const [level, setLevel] = useState(0);
-    const [taskcompleted, setTaskCompleted] = useState(0);
+    // const [level, setLevel] = useState(0);
+    // const [taskcompleted, setTaskCompleted] = useState(0);
 
     const initialList = [
         { id: 'id1', title: 'Example', done: false }
@@ -38,9 +38,13 @@ const Index = () => {
 
     return (
         <section>
+            <div className="flex-none">
+                <div>character goes here</div>
+                <div>add button goes here</div>
+            </div>
             <TodoForm onAddItem={atAddItem}/>
             <ul>
-                {toDoList.map(toDoItem => <ListCard key={toDoItem.id} taskTitle={toDoItem.title} onClickItem={atClickItem}/>)}
+                {toDoList.map(toDoItem => <ListCard key={toDoItem.id} id={toDoItem.id} taskTitle={toDoItem.title} onClickItem={atClickItem}/>)}
             </ul>
         </section>
     )
