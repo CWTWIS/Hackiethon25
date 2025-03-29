@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 
-import PinkEgg from "../assets/lotties/egg_pink.json";
-import PinkKitten from "../assets/lotties/kitten_pink.json";
-import PinkCat from "../assets/lotties/cat_pink.json";
+import PinkEgg from "./assets/egg_pink.json";
+import PinkKitten from "./assets/kitten_pink.json";
+import PinkCat from "./assets/cat_pink.json";
 
-import BlueEgg from "../assets/lotties/egg_blue.json";
-import BlueKitten from "../assets/lotties/kitten_blue.json";
-import BlueCat from "../assets/lotties/cat_blue.json";
+import BlueEgg from "./assets/egg_blue.json";
+import BlueKitten from "./assets/kitten_blue.json";
+import BlueCat from "./assets/cat_blue.json";
 
-import YellowEgg from "../assets/lotties/egg_yellow.json";
-import YellowKitten from "../assets/lotties/kitten_yellow.json";
-import YellowCat from "../assets/lotties/cat_yellow.json";
-
-import ProgressBar from "../Development/ProgressBar";
+import YellowEgg from "./assets/egg_yellow.json";
+import YellowKitten from "./assets/kitten_yellow.json";
+import YellowCat from "./assets/cat_yellow.json";
 
 const pets = [
   { baby: PinkEgg, juvenile: PinkKitten, mature: PinkCat },
@@ -21,7 +19,7 @@ const pets = [
   { baby: YellowEgg, juvenile: YellowKitten, mature: YellowCat },
 ];
 
-const LottiesTest = () => {
+const LottiesTest = ({ taskForProgressBar, onResetProgress }) => {
   // pet
   const [currentPet, setCurrentPet] = useState(
     pets[Math.floor(Math.random() * pets.length)]
@@ -29,60 +27,46 @@ const LottiesTest = () => {
   const [isEvolutionComplete, setIsEvolveComplete] = useState(false);
 
   // task
-  const [tasksCompleted, setTaskCompleted] = useState(0);
-  const firstStage = 5;
-  const secondStage = 10;
-  // const totalTasks = firstStage + secondStage;
-  const totalTasks =
-    tasksCompleted < firstStage
-      ? firstStage
-      : tasksCompleted < firstStage + secondStage
-      ? secondStage
-      : secondStage;
+  const eggStageLimit = 3;
+  const juvenileStageLimit = 5;
+  const fullGrownStage = eggStageLimit + juvenileStageLimit;
 
   // determine animation
   const currentPetAnimation =
-    tasksCompleted >= totalTasks
+    taskForProgressBar >= fullGrownStage
       ? currentPet.mature
-      : tasksCompleted >= firstStage
+      : taskForProgressBar >= eggStageLimit
       ? currentPet.juvenile
       : currentPet.baby;
 
   // determine progress bar
   const currentStageLimit =
-    tasksCompleted < firstStage ? firstStage : secondStage;
-  const currentStageOffset = tasksCompleted < firstStage ? 0 : firstStage;
+    taskForProgressBar < eggStageLimit
+      ? eggStageLimit
+      : taskForProgressBar < fullGrownStage
+      ? juvenileStageLimit
+      : juvenileStageLimit;
+  const currentStageOffset =
+    taskForProgressBar < eggStageLimit ? 0 : eggStageLimit;
 
   // progress bar width
-  const barWidth = 300;
-  const rectangleWidth = barWidth / totalTasks;
-
-  // progress bar function
-  const increaseProgress = () => {
-    if (tasksCompleted < firstStage + secondStage) {
-      setTaskCompleted(tasksCompleted + 1);
-    }
-  };
-  const decreaseProgress = () => {
-    if (tasksCompleted > 0) {
-      setTaskCompleted(tasksCompleted - 1);
-    }
-  };
+  const barWidth = 200;
+  const rectangleWidth = barWidth / currentStageLimit;
 
   // start new egg when complete
   useEffect(() => {
-    if (tasksCompleted >= firstStage + secondStage && !isEvolutionComplete) {
+    if (taskForProgressBar >= fullGrownStage && !isEvolutionComplete) {
       setIsEvolveComplete(true);
       setTimeout(() => {
-        setTaskCompleted(0);
         setCurrentPet(pets[Math.floor(Math.random() * pets.length)]);
+        onResetProgress();
         setIsEvolveComplete(false);
       }, 3000);
     }
-  }, [tasksCompleted, isEvolutionComplete]);
+  }, [taskForProgressBar, isEvolutionComplete, onResetProgress]);
 
   return (
-    <div className="p-6 max-w-l mx-auto bg-white rounded-xl shadow-lg">
+    <div className="p-6 mx-auto bg-white rounded-xl shadow-lg">
       <div className="flex justify-between gap-5">
         {/* -------------- Current Pet ------------- */}
         <div>
@@ -110,7 +94,7 @@ const LottiesTest = () => {
                   height: "100%",
                   borderRadius: "5px",
                   backgroundColor:
-                    index + currentStageOffset < tasksCompleted
+                    index + currentStageOffset < taskForProgressBar
                       ? "#84cc16"
                       : "#e5e7eb",
                 }}
@@ -118,21 +102,6 @@ const LottiesTest = () => {
             ))}
           </div>
         </div>
-        {/* --------------- button test ------------- */}
-      </div>
-      <div className="flex justify-between">
-        <button
-          onClick={increaseProgress}
-          className="p-2 bg-blue-100 rounded-full hover:bg-blue-200 transition-colors"
-        >
-          +
-        </button>
-        <button
-          onClick={decreaseProgress}
-          className="p-2 bg-blue-100 rounded-full hover:bg-blue-200 transition-colors"
-        >
-          -
-        </button>
       </div>
     </div>
   );
