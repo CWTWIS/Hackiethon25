@@ -2,7 +2,7 @@ import { useState } from 'react';
 import addIcon from './add-icon.svg';
 import checkBox from './check-box.svg';
 import checkBoxChecked from './check-box-checked.svg';
-import './Index.css'
+import MyWidget from './Lotties_Test';
 
 const TodoForm = ({ onAddItem }) => {
   const [input, setInput] = useState('');
@@ -17,18 +17,23 @@ const TodoForm = ({ onAddItem }) => {
   };
 
   return (
-    <section>
-      <form onSubmit={atSubmit}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          placeholder="Add new task..."
-        />
-      </form>
-    </section>
+    <ul>
+      <li className="rounded-xl p-2 shadow-md bg-white">
+        <div className="w-75">
+          <form onSubmit={atSubmit}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value);
+              }}
+              placeholder="New task..."
+              className="text-md pl-3"
+            />
+          </form>
+      </div>
+      </li>
+    </ul>
   );
 };
 
@@ -45,8 +50,8 @@ const ListCard = (props) => {
     };
 
     return (
-      <li className={className}>
-        <div className="flex items-center justify-between w-84">
+      <li className={`p-3 text-base ${done ? 'line-through text-gray-500' : 'text-gray-800'}`}>
+        <div className="flex items-center justify-between w-75">
           <div className="text-md">{taskTitle}</div>
           <button onClick={atClick}>
             {done ? (
@@ -102,16 +107,15 @@ const Index = () => {
     }
 
     return (
-      <div className="max-w-500">
-        <div className="p-6 mx-auto bg-white rounded-xl shadow-lg">
+      <div className="w-100">
+        <div className="p-6 h-100 bg-white rounded-xl shadow-lg">
           <div className="space-y-4">
       
-          <div>Task completed {taskCompleted}</div>
+          <MyWidget/>
 
-          <div className="flex">
-            <div className="mr-70">
-              Today
-            </div>
+
+          <div className="flex items-center justify-between w-86">
+            <div>Today</div>
             <button onClick={atClickAdd}>
               <img src={addIcon}/>
             </button>
@@ -119,7 +123,7 @@ const Index = () => {
           
           {createNewItem ? <TodoForm onAddItem={atAddItem}/> : null }
 
-          <ul>
+          <ul className="max-h-50 overflow-y-auto scrollbar-thumb-gray-300 scrollbar-track-transparent rounded-xl p-2 shadow-md bg-white">
               {toDoList.map(toDoItem => <ListCard key={toDoItem.id} id={toDoItem.id} done={toDoItem.done} taskTitle={toDoItem.title} onClickItem={atClickItem}/>)}
           </ul>
         </div>
