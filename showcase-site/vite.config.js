@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/Hackiethon25/showcase-site/",
+  base: "/showcase-site/",
   dependencies: {
     react: "^18.2.0",
     "react-dom": "^18.2.0",
