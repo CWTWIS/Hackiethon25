@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import addIcon from "./add-icon.svg";
-import checkBox from "./check-box.svg";
-import checkBoxChecked from "./check-box-checked.svg";
-import deleteIcon from "./delete-icon.svg";
 import Lottie from "lottie-react";
-import PinkEgg from "./assets/egg_pink_2.json";
-import PinkKitten from "./assets/kitten_pink_2.json";
-import PinkCat from "./assets/cat_pink_2.json";
-import BlueEgg from "./assets/egg_blue_2.json";
-import BlueKitten from "./assets/kitten_blue_2.json";
-import BlueCat from "./assets/cat_blue_2.json";
-import YellowEgg from "./assets/egg_yellow_2.json";
-import YellowKitten from "./assets/kitten_yellow_2.json";
-import YellowCat from "./assets/cat_yellow_2.json";
+import {
+  addIcon,
+  checkBox,
+  checkBoxChecked,
+  deleteIcon,
+  PinkEgg,
+  PinkKitten,
+  PinkCat,
+  BlueEgg,
+  BlueKitten,
+  BlueCat,
+  YellowEgg,
+  YellowKitten,
+  YellowCat
+} from './Assets-ToDoListWithPet';
 
 const pets = [
   { baby: PinkEgg, juvenile: PinkKitten, mature: PinkCat },
