@@ -1,8 +1,59 @@
 import { useState } from 'react';
-import "./assets"
-import "./css"
-import TodoForm from './ToDoForm';
-import ListCard from './ListCard';
+import PropTypes from 'prop-types'
+
+TodoForm.propTypes = {
+    onAddItem: PropTypes.func
+}
+
+const TodoForm = ({ onAddItem }) => {
+  const [input, setInput] = useState('');
+
+  const atSubmit = (e) => {
+    e.preventDefault();
+    if (input === '') {
+      return;
+    }
+    setInput('');
+    onAddItem(input);
+  };
+
+  return (
+    <section>
+      <form onSubmit={atSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+        />
+      </form>
+    </section>
+  );
+};
+
+ListCard.propTypes = {
+    id: PropTypes.string,
+    done: PropTypes.bool,
+    taskTitle: PropTypes.string,
+    taskDateTime: PropTypes.string,
+    onClickItem: PropTypes.func
+}
+
+const ListCard = (props) => {  
+    const {id, done, taskTitle, onClickItem} = props;
+    
+    let className = 'list-item';
+    if (done) {
+        className += ' done';
+    }
+
+    const atClick = () => {
+        onClickItem(id);
+    };
+
+    return <li className={className} onClick={atClick}>{`${taskTitle}`}</li>
+}
 
 const Index = () => {
     const [toDoList, setToDoList] = useState(initialList);
