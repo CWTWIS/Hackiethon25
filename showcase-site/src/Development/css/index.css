@@ -1,8 +1,0 @@
-@import "tailwindcss";
-
-.list-item {
-    &.done{
-        text-decoration: line-through;
-        color: #888;
-      }
-}
