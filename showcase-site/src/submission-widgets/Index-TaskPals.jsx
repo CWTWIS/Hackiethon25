@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import Lottie from "lottie-react";
-import {
-  addIcon,
-  checkBox,
-  checkBoxChecked,
-  deleteIcon,
-  PinkEgg,
-  PinkKitten,
-  PinkCat,
-  BlueEgg,
-  BlueKitten,
-  BlueCat,
-  YellowEgg,
-  YellowKitten,
-  YellowCat
-} from './Assets-ToDoListWithPet';
+
+import addIcon from "./Assets-TaskPals/add-icon.svg";
+import checkBox from "./Assets-TaskPals/check-box.svg";
+import checkBoxChecked from "./Assets-TaskPals/check-box-checked.svg";
+import deleteIcon from "./Assets-TaskPals/delete-icon.svg";
+
+import PinkEgg from "./Assets-TaskPals/egg_pink_2.json";
+import PinkKitten from "./Assets-TaskPals/kitten_pink_2.json";
+import PinkCat from "./Assets-TaskPals/cat_pink_2.json";
+import BlueEgg from "./Assets-TaskPals/egg_blue_2.json";
+import BlueKitten from "./Assets-TaskPals/kitten_blue_2.json";
+import BlueCat from "./Assets-TaskPals/cat_blue_2.json";
+import YellowEgg from "./Assets-TaskPals/egg_yellow_2.json";
+import YellowKitten from "./Assets-TaskPals/kitten_yellow_2.json";
+import YellowCat from "./Assets-TaskPals/cat_yellow_2.json";
 
 const pets = [
   { baby: PinkEgg, juvenile: PinkKitten, mature: PinkCat },
@@ -175,10 +175,7 @@ const ListCard = (props) => {
 };
 
 const Index = () => {
-  const initialList = [
-    { id: "id1", title: "Example1", done: false },
-    { id: "id2", title: "Example2", done: false },
-  ];
+  const initialList = [];
   const [toDoList, setToDoList] = useState(initialList);
   const [createNewItem, setCreateNewItem] = useState(false);
   const [taskCompleted, setTaskCompleted] = useState(0);
