@@ -1,3 +1,65 @@
+# TaskPals 🐾✨  
+**A gamified to-do list that makes productivity fun!**  
+
+## 🚀 Overview  
+TaskPals turns your tasks into a game! Complete to-dos to help your virtual pet grow and evolve. Stay motivated as you watch your pet progress through different stages.  
+
+🛠️ **Submitted to Hackiethon 2025 Widget Challenge – Theme: Productivity**  
+
+[🔗 View our submission on Devpost](https://devpost.com/software/taskpals)
+
+## 🎮 What It Does  
+TaskPals transforms your to-do list into an interactive experience!  
+
+✅ **Add new tasks**  
+✅ **Toggle tasks as done/undone with a click**  
+✅ **Delete tasks when no longer needed**  
+✅ **Track progress with a progress bar**  
+✅ **Evolve pets by completing tasks**  
+
+Once a pet reaches its final stage, you get a new pet to raise—making productivity fun and rewarding!  
+
+## 🛠️ How We Built It  
+- **Frontend:** React with React Hooks for state management  
+- **Animations:** Lottie for smooth visual effects  
+- **Logic:** JavaScript for progress tracking and pet evolution  
+- **Design:** Figma for UI/UX planning before development  
+
+## ⚡ Challenges We Faced  
+- Handling the logic for evolving pets while keeping progress accurate  
+- Ensuring seamless interaction between tasks, progress bars, and pet evolution  
+- **Limitation:** If a pet has evolved, undone tasks don’t revert the evolution (future fix!)  
+
+## 🎉 Accomplishments  
+✔️ Built a gamified productivity app that makes task completion rewarding  
+✔️ Designed a clean and engaging UI in Figma and implemented it in React  
+✔️ Created a user experience with animations  
+
+## 💡 What We Learned  
+- Managing complex state with React Hooks (`useState`, `useEffect`)  
+- Designing intuitive UI/UX before coding  
+- Balancing gamification with usability  
+
+## 🔮 What's Next?  
+### 🏆 Achievements & Milestones  
+- Track and display completed tasks and evolved pets  
+
+### 🐾 Pet Collection System  
+- Unlock pets with different rarities (Common, Rare, Legendary)  
+- View collected pets in a **collection screen**  
+
+### 📢 Social Sharing  
+- Share obtained pets and milestones to **Instagram Stories, Facebook Feed, etc.**  
+
+### 🎨 UI Improvements  
+- **Edit task titles**  
+- **Drag-and-drop** tasks to rearrange order  
+- **Sort/filter tasks** (by completion status, date, priority)  
+- **Color-coded labels** for easier task organization  
+
+---
+
+
 # 🏆 Hackiethon2025 Widget Challenge
 
 ## 📌 Overview
